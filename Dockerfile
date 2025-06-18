@@ -26,4 +26,4 @@ RUN mv /media/jupyter_notebook_config.py /etc/ 2>/dev/null ||  echo "No jupyter 
 RUN mkdir -p /media/notebooks/; chmod +x /media/notebooks/;mv /media/*.ipynb /media/notebooks/ 2>/dev/null ||  echo "No notebooks found"
 RUN chmod -R 644 /media/notebooks/*.*;chmod 655 /media/notebooks/
 
-RUN apt list
+RUN java -version
