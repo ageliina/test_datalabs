@@ -1,7 +1,7 @@
 astropy
-astroquery>=4.10.0
+astroquery>=0.4.10
 ipykernel
-matplotlib
 numpy
-scipy
+pandas
+pip
 pyvo

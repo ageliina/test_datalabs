@@ -37,8 +37,3 @@ ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 RUN java -version
 RUN javac -version
-
-##
-# Install euclid-agn conda environment based on requirements.txt
-RUN conda env create -f environment.yml -y  && conda clean --all -y
-RUN conda activate euclid-agn && python3 -m ipykernel install
