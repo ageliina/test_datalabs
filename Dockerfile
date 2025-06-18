@@ -28,7 +28,7 @@ RUN chmod -R 644 /media/notebooks/*.*;chmod 655 /media/notebooks/
 
 ##
 # Install additional software
-RUN sed -i 's/ main restricted/ main restricted universe/' /etc/apt/sources.list && \
+RUN sed -i 's/ main restricted$/ main restricted universe/' /etc/apt/sources.list && \
     apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
