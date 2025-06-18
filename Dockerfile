@@ -26,25 +26,4 @@ RUN mv /media/jupyter_notebook_config.py /etc/ 2>/dev/null ||  echo "No jupyter 
 RUN mkdir -p /media/notebooks/; chmod +x /media/notebooks/;mv /media/*.ipynb /media/notebooks/ 2>/dev/null ||  echo "No notebooks found"
 RUN chmod -R 644 /media/notebooks/*.*;chmod 655 /media/notebooks/
 
-##
-# hotfix4
-
-RUN apt update && \
-    apt install -y --no-install-recommends software-properties-common && \
-    add-apt-repository universe && \
-    apt update && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# --- Step 2: Install Java (OpenJDK) ---
-#
-# Now that the 'universe' repository should be correctly enabled and package lists updated,
-# we'll install OpenJDK 17 directly.
-RUN apt install -y --no-install-recommends openjdk-17-jdk && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# --- Optional: Verify Java Installation ---
-# This helps confirm that Java was installed successfully during the build.
-RUN java -version
-RUN javac -version # Checks the Java compiler
+RUN apt list
