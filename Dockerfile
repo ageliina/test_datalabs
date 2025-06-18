@@ -40,6 +40,8 @@ RUN sed -i 's/ main restricted$/ main restricted universe/' /etc/apt/sources.lis
 #    apt clean && \
 #    rm -rf /var/lib/apt/lists/*
 
+RUN apt search jdk
+
 RUN apt install -y --no-install-recommends default-jdk && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
