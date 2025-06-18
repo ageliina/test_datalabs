@@ -21,23 +21,19 @@ ARG JL_BASE_VERSION=stable
 ARG REGISTRY=scidockreg.esac.esa.int:62530
 FROM ${REGISTRY}/datalabs/jl_base:${JL_BASE_VERSION}
 
-# --- Step to install OpenJDK 11 for Ubuntu 18.04 ---
-# This package *is* available in the default Ubuntu 18.04 repositories (main/universe).
-RUN apt update && \
-    apt install -y --no-install-recommends openjdk-11-jdk && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# --- Set JAVA_HOME environment variable for OpenJDK 11 ---
-ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
-
-# --- Verify Java Installation ---
-RUN java -version
-RUN javac -version
-
 COPY *.* /media/
 RUN pip3 install --no-cache-dir -r /media/requirements.txt
 RUN mv /media/jupyter_notebook_config.py /etc/ 2>/dev/null ||  echo "No jupyter config found"
 RUN mkdir -p /media/notebooks/; chmod +x /media/notebooks/;mv /media/*.ipynb /media/notebooks/ 2>/dev/null ||  echo "No notebooks found"
 RUN chmod -R 644 /media/notebooks/*.*;chmod 655 /media/notebooks/
+
+##
+# Install java
+RUN apt update && \
+    apt install -y --no-install-recommends openjdk-11-jdk && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+RUN java -version
+RUN javac -version
